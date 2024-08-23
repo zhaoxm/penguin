@@ -3,6 +3,7 @@ import { AuthService } from './auth/auth.service';
 import { Request } from 'express';
 import { JwtAuthGuard } from './passport/jwt.guard';
 import { LocalAuthGuard } from './passport/local.guard';
+import { UserPayload } from './passport/entities/payload.entity';
 
 @Controller()
 export class AppController {
@@ -17,6 +18,6 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Req() req: Request) {
-    return req.user;
+    return req.user as UserPayload;
   }
 }

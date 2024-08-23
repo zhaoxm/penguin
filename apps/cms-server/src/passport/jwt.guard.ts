@@ -7,6 +7,7 @@ import {
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
 import { jwtConstants } from 'src/passport/constants';
+import { UserPayload } from './entities/payload.entity';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -37,13 +38,18 @@ export class JwtAuthGuard implements CanActivate {
     return type === 'Bearer' ? token : null;
   }
 
-  private verifyToken(token: string): Promise<any> {
+  private verifyToken(token: string): Promise<UserPayload> {
     return new Promise((resolve, reject) => {
       jwt.verify(token, jwtConstants.secret, (err, decoded) => {
         if (err) {
           return reject(err);
         }
-        resolve(decoded);
+
+        if (decoded == null || typeof decoded === 'string') {
+          return reject(new UnauthorizedException('invalid payload'));
+        }
+
+        resolve(decoded as UserPayload);
       });
     });
   }
