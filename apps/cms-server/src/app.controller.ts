@@ -11,9 +11,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users/users.service';
 import { SentryFilter } from './common/sentry.filter';
-import { ParseIntPipe } from './common/parse-int.pipe';
 import { CreateUserDto } from './users/dto/create-user.dto';
-import { ParseUserPipe } from './common/parse-user.pipe';
 
 @UseFilters(SentryFilter)
 @Controller()
@@ -31,7 +29,7 @@ export class AppController {
   }
 
   @Put()
-  create(@Body(ParseUserPipe) dto: CreateUserDto) {
+  create(@Body() dto: CreateUserDto) {
     return dto;
   }
 
@@ -41,7 +39,7 @@ export class AppController {
   }
 
   @Get('number/:id')
-  num(@Param('id', ParseIntPipe) id: number) {
+  num(@Param('id') id: number) {
     return id;
   }
 }
