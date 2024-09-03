@@ -8,10 +8,13 @@ import {
   Param,
   Put,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users/users.service';
 import { SentryFilter } from './common/sentry.filter';
 import { CreateUserDto } from './users/dto/create-user.dto';
+import { RoleGuard } from './common/role.guard';
+import { Roles } from './common/roles.decorator';
 
 @UseFilters(SentryFilter)
 @Controller()
@@ -26,6 +29,13 @@ export class AppController {
     const msg = this.usersService.say();
     console.log('msg: ', msg);
     return msg;
+  }
+
+  @Get('cats')
+  @Roles('admin')
+  @UseGuards(RoleGuard)
+  getCats() {
+    return 'hello cats';
   }
 
   @Put()
