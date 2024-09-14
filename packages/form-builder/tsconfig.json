@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5", // 编译目标，可以根据项目需求选择
+    "module": "es6", // 使用 ES6 模块化系统
+    "strict": true, // 启用所有严格类型检查
+    "esModuleInterop": true, // 使 CommonJS 和 ES 模块之间的互操作性更好
+    "skipLibCheck": true, // 跳过对声明文件（`.d.ts`）的类型检查
+    "forceConsistentCasingInFileNames": true // 强制文件名一致性
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
