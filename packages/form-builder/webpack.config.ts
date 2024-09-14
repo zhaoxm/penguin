@@ -8,11 +8,12 @@ const config: Configuration = {
   },
   module: {
     rules: [
-      { test: /\.txt$/, use: "raw-loader" },
       {
         test: /\.ts(x)$/,
-        use: "ts-loader",
+        use: "swc-loader",
+        exclude: /node_modules/,
       },
+      { test: /\.txt$/, use: "raw-loader" },
     ],
   },
 };
